@@ -20,7 +20,7 @@
   </ul>
 
   <!-- Mobile burger -->
-  <button class="nav-burger" id="burger" onclick="toggleMenu()" aria-label="Меню">
+  <button class="nav-burger" id="burger" aria-label="Меню">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -187,5 +187,23 @@ document.addEventListener('click', function(e) {
 });
 </script>
 
+<script>
+function toggleMenu() {
+  document.getElementById('mobile-nav').classList.toggle('open');
+}
+document.getElementById('burger').addEventListener('click', function(e) {
+  e.stopPropagation();
+  toggleMenu();
+});
+document.addEventListener('click', function(e) {
+  var nav = document.getElementById('mobile-nav');
+  if (nav && nav.classList.contains('open')) {
+    nav.classList.remove('open');
+  }
+});
+document.getElementById('mobile-nav').addEventListener('click', function(e) {
+  e.stopPropagation();
+});
+</script>
 </body>
 </html>
