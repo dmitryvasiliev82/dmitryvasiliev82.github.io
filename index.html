@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Дмитрий Васильев — Живопись</title>
+  <meta name="description" content="Дмитрий Эдуардович Васильев — художник из Якутска. Живопись, графика, монументальное искусство.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Дмитрий Васильев</a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Главная</a></li>
+    <li><a href="gallery.html">Галерея</a></li>
+    <li><a href="drawings.html">Графика</a></li>
+    <li><a href="bio.html">Биография</a></li>
+    <li><a href="exhibitions.html">Выставки</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-img">
+    <img src="images/artist_photo.jpg" alt="Дмитрий Васильев">
+  </div>
+  <div class="hero-text">
+    <p class="hero-sub">Художник · Якутск</p>
+    <h1>Дмитрий<br>Васильев</h1>
+    <div class="accent-rule"></div>
+    <p class="hero-location">1982 · Республика Саха (Якутия)</p>
+    <p style="font-size:14px;color:var(--mid);line-height:1.7;margin-bottom:40px;max-width:380px;">
+      Живопись, графика и монументальное искусство. Работает в жанрах натюрморта,
+      пейзажа и портрета, создавая произведения с теплотой северного колорита.
+    </p>
+    <a href="gallery.html" class="btn">Смотреть работы</a>
+  </div>
+</section>
+
+<!-- Featured works -->
+<div class="section">
+  <p class="section-label">Избранное</p>
+  <p class="section-title">Живопись</p>
+
+  <div class="gallery-grid">
+
+    <div class="artwork-card" onclick="openLightbox(0)">
+      <div class="artwork-img-wrap">
+        <img src="images/polevye_cvety.jpg" alt="Полевые цветы" loading="lazy">
+      </div>
+      <div class="artwork-title">«Полевые цветы»</div>
+      <div class="artwork-meta">холст, масло · 40×60 см · 2021 г.</div>
+    </div>
+
+    <div class="artwork-card" onclick="openLightbox(1)">
+      <div class="artwork-img-wrap">
+        <img src="images/shipovnik.jpg" alt="Натюрморт с шиповником" loading="lazy">
+      </div>
+      <div class="artwork-title">«Натюрморт с шиповником»</div>
+      <div class="artwork-meta">холст, масло · 60×80 см · 2021 г.</div>
+    </div>
+
+    <div class="artwork-card" onclick="openLightbox(2)">
+      <div class="artwork-img-wrap">
+        <img src="images/chai.jpg" alt="Чаи у окна" loading="lazy">
+      </div>
+      <div class="artwork-title">«Чаи у окна»</div>
+      <div class="artwork-meta">холст, масло · 60×80 см · 2021 г.</div>
+    </div>
+
+    <div class="artwork-card" onclick="openLightbox(3)">
+      <div class="artwork-img-wrap">
+        <img src="images/semya_svyatitelya.jpg" alt="Семья святителя" loading="lazy">
+      </div>
+      <div class="artwork-title">«Семья святителя»</div>
+      <div class="artwork-meta">холст, масло · 85,7×116,3 см · 2024–25 г.</div>
+    </div>
+
+    <div class="artwork-card" onclick="openLightbox(4)">
+      <div class="artwork-img-wrap">
+        <img src="images/oblaka.jpg" alt="Облака" loading="lazy">
+      </div>
+      <div class="artwork-title">«Облака»</div>
+      <div class="artwork-meta">картон, масло · 50×40 см · 2005 г.</div>
+    </div>
+
+    <div class="artwork-card" onclick="openLightbox(5)">
+      <div class="artwork-img-wrap">
+        <img src="images/sosudy.jpg" alt="Якутские сосуды" loading="lazy">
+      </div>
+      <div class="artwork-title">«Якутские сосуды»</div>
+      <div class="artwork-meta">холст, масло</div>
+    </div>
+
+  </div>
+
+  <div style="text-align:center;margin-top:56px;">
+    <a href="gallery.html" class="btn">Все работы</a>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+  <button class="lightbox-nav prev" onclick="event.stopPropagation();changeImg(-1)">&#8592;</button>
+  <img id="lb-img" src="" alt="">
+  <div class="lightbox-caption">
+    <strong id="lb-title"></strong>
+    <span id="lb-meta"></span>
+  </div>
+  <button class="lightbox-nav next" onclick="event.stopPropagation();changeImg(1)">&#8594;</button>
+</div>
+
+<footer>
+  <p>Дмитрий Эдуардович Васильев · Якутск · Республика Саха (Якутия)</p>
+</footer>
+
+<script>
+const featured = [
+  {src:'images/polevye_cvety.jpg', title:'Полевые цветы', meta:'холст, масло · 40×60 см · 2021 г.'},
+  {src:'images/shipovnik.jpg', title:'Натюрморт с шиповником', meta:'холст, масло · 60×80 см · 2021 г.'},
+  {src:'images/chai.jpg', title:'Чаи у окна', meta:'холст, масло · 60×80 см · 2021 г.'},
+  {src:'images/semya_svyatitelya.jpg', title:'Семья святителя', meta:'холст, масло · 85,7×116,3 см · 2024–25 г.'},
+  {src:'images/oblaka.jpg', title:'Облака', meta:'картон, масло · 50×40 см · 2005 г.'},
+  {src:'images/sosudy.jpg', title:'Якутские сосуды', meta:'холст, масло'},
+];
+
+let current = 0;
+
+function openLightbox(i) {
+  current = i;
+  const lb = document.getElementById('lightbox');
+  lb.classList.add('open');
+  updateLightbox();
+}
+
+function updateLightbox() {
+  const a = featured[current];
+  document.getElementById('lb-img').src = a.src;
+  document.getElementById('lb-title').textContent = '«' + a.title + '»';
+  document.getElementById('lb-meta').textContent = a.meta;
+}
+
+function changeImg(dir) {
+  current = (current + dir + featured.length) % featured.length;
+  updateLightbox();
+}
+
+function closeLightbox(e) {
+  if (!e || e.target === document.getElementById('lightbox') || e.target.classList.contains('lightbox-close')) {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if (document.getElementById('lightbox').classList.contains('open')) {
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') changeImg(-1);
+    if (e.key === 'ArrowRight') changeImg(1);
+  }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Графика — Дмитрий Васильев</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+    .artwork-img-wrap img { height: 360px; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Дмитрий Васильев</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Главная</a></li>
+    <li><a href="gallery.html">Галерея</a></li>
+    <li><a href="drawings.html" class="active">Графика</a></li>
+    <li><a href="bio.html">Биография</a></li>
+    <li><a href="exhibitions.html">Выставки</a></li>
+  </ul>
+</nav>
+
+<div class="page-header" style="margin-top:56px;">
+  <p class="section-label">Рисунок · графика</p>
+  <p class="section-title">Графические работы</p>
+</div>
+
+<div class="section" style="padding-top:40px;">
+  <div class="gallery-grid" id="gallery"></div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+  <button class="lightbox-nav prev" onclick="event.stopPropagation();changeImg(-1)">&#8592;</button>
+  <img id="lb-img" src="" alt="">
+  <div class="lightbox-caption">
+    <strong id="lb-title"></strong>
+    <span id="lb-meta"></span>
+  </div>
+  <button class="lightbox-nav next" onclick="event.stopPropagation();changeImg(1)">&#8594;</button>
+</div>
+
+<footer>
+  <p>Дмитрий Эдуардович Васильев · Якутск · Республика Саха (Якутия)</p>
+</footer>
+
+<script>
+const drawings = [
+  {src:'images/avtoportret.jpg',  title:'Автопортрет',  meta:'карандаш · 2020 г.'},
+  {src:'images/kasper.jpg',       title:'Каспер',       meta:'карандаш · 2016 г.'},
+  {src:'images/tolya_abyi.jpg',   title:'Толя Абый',    meta:'карандаш · 2016 г.'},
+  {src:'images/nabrosok.jpg',     title:'Набросок',     meta:'карандаш · 2017 г.'},
+];
+
+let current = 0;
+const grid = document.getElementById('gallery');
+
+drawings.forEach((a, i) => {
+  const card = document.createElement('div');
+  card.className = 'artwork-card';
+  card.onclick = () => openLightbox(i);
+  card.innerHTML = `
+    <div class="artwork-img-wrap">
+      <img src="${a.src}" alt="${a.title}" loading="lazy">
+    </div>
+    <div class="artwork-title">«${a.title}»</div>
+    <div class="artwork-meta">${a.meta}</div>
+  `;
+  grid.appendChild(card);
+});
+
+function openLightbox(i) {
+  current = i;
+  document.getElementById('lightbox').classList.add('open');
+  updateLightbox();
+}
+
+function updateLightbox() {
+  const a = drawings[current];
+  document.getElementById('lb-img').src = a.src;
+  document.getElementById('lb-title').textContent = '«' + a.title + '»';
+  document.getElementById('lb-meta').textContent = a.meta;
+}
+
+function changeImg(dir) {
+  current = (current + dir + drawings.length) % drawings.length;
+  updateLightbox();
+}
+
+function closeLightbox(e) {
+  if (!e || e.target === document.getElementById('lightbox') || e.target.classList.contains('lightbox-close')) {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if (document.getElementById('lightbox').classList.contains('open')) {
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') changeImg(-1);
+    if (e.key === 'ArrowRight') changeImg(1);
+  }
+});
+</script>
+
+</body>
+</html>

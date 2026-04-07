@@ -1,0 +1,409 @@
+/* ── Reset & Base ─────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #F8F6F2;
+  --ink:     #1C1C1C;
+  --accent:  #8B7355;
+  --mid:     #6B6058;
+  --light:   #B0A898;
+  --rule:    #D5CEC4;
+  --white:   #FFFFFF;
+  --font:    'Georgia', 'Times New Roman', serif;
+  --sans:    'Arial', 'Helvetica Neue', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Nav ──────────────────────────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(248,246,242,0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 40px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: var(--font);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mid);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover,
+.nav-links a.active { color: var(--accent); }
+
+/* ── Hero (index) ─────────────────────────────────────────────────────────── */
+.hero {
+  margin-top: 56px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 56px);
+}
+
+.hero-img {
+  overflow: hidden;
+}
+.hero-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 64px;
+}
+
+.hero-text h1 {
+  font-family: var(--font);
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: normal;
+  font-style: italic;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+
+.accent-rule {
+  width: 60px;
+  height: 2px;
+  background: var(--accent);
+  margin-bottom: 20px;
+}
+
+.hero-sub {
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.hero-location {
+  font-size: 14px;
+  color: var(--mid);
+  margin-bottom: 48px;
+}
+
+.btn {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  padding: 12px 28px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btn:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+/* ── Section wrapper ──────────────────────────────────────────────────────── */
+.section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 40px;
+}
+
+.section-label {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-family: var(--font);
+  font-size: 28px;
+  font-weight: normal;
+  font-style: italic;
+  color: var(--ink);
+  margin-bottom: 32px;
+}
+
+/* ── Gallery grid ─────────────────────────────────────────────────────────── */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 40px 32px;
+}
+
+.artwork-card {
+  cursor: pointer;
+}
+
+.artwork-img-wrap {
+  overflow: hidden;
+  background: #ede9e3;
+  margin-bottom: 14px;
+}
+
+.artwork-img-wrap img {
+  width: 100%;
+  height: 400px;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  transition: transform 0.5s ease;
+  background: #ede9e3;
+}
+
+.artwork-card:hover .artwork-img-wrap img {
+  transform: scale(1.03);
+}
+
+.artwork-title {
+  font-family: var(--font);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.artwork-meta {
+  font-size: 12px;
+  color: var(--mid);
+  letter-spacing: 0.02em;
+}
+
+/* ── Lightbox ─────────────────────────────────────────────────────────────── */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(20,18,16,0.94);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 32px;
+}
+.lightbox.open { display: flex; }
+
+.lightbox img {
+  max-width: 90vw;
+  max-height: 80vh;
+  object-fit: contain;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.lightbox-caption {
+  text-align: center;
+  color: rgba(255,255,255,0.85);
+}
+.lightbox-caption strong {
+  display: block;
+  font-family: var(--font);
+  font-size: 16px;
+  font-style: italic;
+  margin-bottom: 4px;
+}
+.lightbox-caption span {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+}
+
+.lightbox-close {
+  position: fixed;
+  top: 24px; right: 32px;
+  color: rgba(255,255,255,0.6);
+  font-size: 32px;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s;
+  background: none;
+  border: none;
+}
+.lightbox-close:hover { color: white; }
+
+.lightbox-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255,255,255,0.5);
+  font-size: 40px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: color 0.2s;
+  padding: 20px;
+  line-height: 1;
+}
+.lightbox-nav:hover { color: white; }
+.lightbox-nav.prev { left: 16px; }
+.lightbox-nav.next { right: 16px; }
+
+/* ── Bio page ─────────────────────────────────────────────────────────────── */
+.bio-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 80px;
+  align-items: start;
+}
+
+.bio-text p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+
+.edu-table {
+  margin: 32px 0;
+  border-top: 1px solid var(--rule);
+}
+
+.edu-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 14px;
+}
+
+.edu-year {
+  font-weight: bold;
+  color: var(--accent);
+  font-size: 13px;
+}
+
+.edu-desc {
+  color: var(--mid);
+  line-height: 1.5;
+}
+
+.bio-photo img {
+  width: 100%;
+  display: block;
+}
+
+.bio-photo-caption {
+  font-size: 11px;
+  color: var(--light);
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* ── Exhibitions ──────────────────────────────────────────────────────────── */
+.exh-list {
+  border-top: 1px solid var(--rule);
+}
+
+.exh-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.exh-year {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--accent);
+  padding-top: 2px;
+}
+
+.exh-title {
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.exh-venue {
+  font-size: 13px;
+  color: var(--mid);
+  font-style: italic;
+}
+
+/* ── Page header (inner pages) ────────────────────────────────────────────── */
+.page-header {
+  margin-top: 56px;
+  padding: 64px 40px 48px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* ── Footer ───────────────────────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 40px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--light);
+  letter-spacing: 0.06em;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-links { gap: 16px; }
+  .nav-links a { font-size: 10px; }
+
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-img { height: 60vw; }
+  .hero-text { padding: 48px 24px; }
+
+  .section { padding: 48px 20px; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; gap: 24px 16px; }
+  .artwork-img-wrap img { height: 260px; }
+
+  .bio-grid { grid-template-columns: 1fr; gap: 40px; }
+  .exh-item { grid-template-columns: 60px 1fr; gap: 16px; }
+
+  .page-header { padding: 48px 20px 32px; margin-top: 56px; }
+  footer { padding: 32px 20px; }
+
+  .lightbox-nav { font-size: 28px; padding: 12px; }
+}
+
+@media (max-width: 480px) {
+  .gallery-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Галерея — Дмитрий Васильев</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Дмитрий Васильев</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Главная</a></li>
+    <li><a href="gallery.html" class="active">Галерея</a></li>
+    <li><a href="drawings.html">Графика</a></li>
+    <li><a href="bio.html">Биография</a></li>
+    <li><a href="exhibitions.html">Выставки</a></li>
+  </ul>
+</nav>
+
+<div class="page-header" style="margin-top:56px;">
+  <p class="section-label">Живопись · масло</p>
+  <p class="section-title">Галерея работ</p>
+</div>
+
+<div class="section" style="padding-top:40px;">
+  <div class="gallery-grid" id="gallery"></div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+  <button class="lightbox-nav prev" onclick="event.stopPropagation();changeImg(-1)">&#8592;</button>
+  <img id="lb-img" src="" alt="">
+  <div class="lightbox-caption">
+    <strong id="lb-title"></strong>
+    <span id="lb-meta"></span>
+  </div>
+  <button class="lightbox-nav next" onclick="event.stopPropagation();changeImg(1)">&#8594;</button>
+</div>
+
+<footer>
+  <p>Дмитрий Эдуардович Васильев · Якутск · Республика Саха (Якутия)</p>
+</footer>
+
+<script>
+const artworks = [
+  {src:'images/semya_svyatitelya.jpg',  title:'Семья святителя',              meta:'холст, масло · 85,7×116,3 см · 2024–25 г.'},
+  {src:'images/polevye_cvety.jpg',      title:'Полевые цветы',                meta:'холст, масло · 40×60 см · 2021 г.'},
+  {src:'images/shipovnik.jpg',          title:'Натюрморт с шиповником',       meta:'холст, масло · 60×80 см · 2021 г.'},
+  {src:'images/chai.jpg',               title:'Чаи у окна',                   meta:'холст, масло · 60×80 см · 2021 г.'},
+  {src:'images/sosudy.jpg',             title:'Якутские сосуды',              meta:'холст, масло'},
+  {src:'images/zhenskiy_portret.jpg',   title:'Женский портрет',              meta:'гризайль, холст, масло · 50×40 см · 2026 г.'},
+  {src:'images/osennee_utro.jpg',       title:'Осеннее утро',                 meta:'холст, масло · 40×80 см · 2007 г.'},
+  {src:'images/osenniy_vecher.jpg',     title:'Осенний вечер',                meta:'холст, масло · 37×54 см · 2007 г.'},
+  {src:'images/osen.jpg',               title:'Осень',                        meta:'холст, масло · 50×40 см · 2007 г.'},
+  {src:'images/sakha_sire.jpg',         title:'Саха сирэ',                    meta:'аргалит, масло · 74×33 см · 2007 г.'},
+  {src:'images/ryabina_griby.jpg',      title:'Натюрморт с рябиной и грибами',meta:'картон, масло · 50×60 см · 2005 г.'},
+  {src:'images/dozhdevaya_voda.jpg',     title:'Дождевая вода',                meta:'картон, масло · 30×50 см · 2005 г.'},
+  {src:'images/oblaka.jpg',             title:'Облака',                       meta:'картон, масло · 50×40 см · 2005 г.'},
+  {src:'images/tyotya_dagmara.jpg',     title:'Тётя Дагмара',                 meta:'аргалит, масло · 53×34 см · 2005 г.'},
+];
+
+let current = 0;
+const grid = document.getElementById('gallery');
+
+artworks.forEach((a, i) => {
+  const card = document.createElement('div');
+  card.className = 'artwork-card';
+  card.onclick = () => openLightbox(i);
+  card.innerHTML = `
+    <div class="artwork-img-wrap">
+      <img src="${a.src}" alt="${a.title}" loading="lazy">
+    </div>
+    <div class="artwork-title">«${a.title}»</div>
+    <div class="artwork-meta">${a.meta}</div>
+  `;
+  grid.appendChild(card);
+});
+
+function openLightbox(i) {
+  current = i;
+  document.getElementById('lightbox').classList.add('open');
+  updateLightbox();
+}
+
+function updateLightbox() {
+  const a = artworks[current];
+  document.getElementById('lb-img').src = a.src;
+  document.getElementById('lb-title').textContent = '«' + a.title + '»';
+  document.getElementById('lb-meta').textContent = a.meta;
+}
+
+function changeImg(dir) {
+  current = (current + dir + artworks.length) % artworks.length;
+  updateLightbox();
+}
+
+function closeLightbox(e) {
+  if (!e || e.target === document.getElementById('lightbox') || e.target.classList.contains('lightbox-close')) {
+    document.getElementById('lightbox').classList.remove('open');
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if (document.getElementById('lightbox').classList.contains('open')) {
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') changeImg(-1);
+    if (e.key === 'ArrowRight') changeImg(1);
+  }
+});
+</script>
+
+</body>
+</html>
