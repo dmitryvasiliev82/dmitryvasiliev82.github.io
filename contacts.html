@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Контакты — Дмитрий Васильев</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-item {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .contact-item:first-child { border-top: 1px solid var(--rule); }
+
+    .contact-label {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .contact-value {
+      font-family: var(--font);
+      font-size: 18px;
+      color: var(--ink);
+    }
+
+    .contact-value a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+      transition: border-color 0.2s;
+    }
+    .contact-value a:hover {
+      border-color: var(--accent);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 24px;
+      margin-top: 4px;
+    }
+    .social-links a {
+      font-size: 15px;
+      font-family: var(--sans);
+    }
+
+    .qr-block {
+      text-align: center;
+    }
+    .qr-block img {
+      width: 100%;
+      max-width: 300px;
+      display: block;
+      margin: 0 auto;
+    }
+    .qr-hint {
+      font-size: 12px;
+      color: var(--light);
+      margin-top: 12px;
+      font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+      .contacts-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .qr-block img { max-width: 240px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Дмитрий Васильев</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Главная</a></li>
+    <li><a href="gallery.html">Галерея</a></li>
+    <li><a href="drawings.html">Графика</a></li>
+    <li><a href="bio.html">Биография</a></li>
+    <li><a href="exhibitions.html">Выставки</a></li>
+    <li><a href="contacts.html" class="active">Контакты</a></li>
+  </ul>
+
+  <!-- Mobile burger -->
+  <button class="nav-burger" id="burger" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile nav -->
+<div class="nav-mobile" id="mobile-nav">
+  <a href="index.html">Главная</a>
+  <a href="gallery.html">Галерея</a>
+  <a href="drawings.html">Графика</a>
+  <a href="bio.html">Биография</a>
+  <a href="exhibitions.html">Выставки</a>
+  <a href="contacts.html" class="active">Контакты</a>
+</div>
+
+<div class="page-header" style="margin-top:56px;">
+  <p class="section-label">Связаться</p>
+  <p class="section-title">Контакты</p>
+</div>
+
+<div class="section" style="padding-top:48px;">
+  <div class="contacts-grid">
+
+    <div class="contacts-info">
+
+      <div class="contact-item">
+        <div class="contact-label">Электронная почта</div>
+        <div class="contact-value">
+          <a href="mailto:dmitryvasiliev82@inbox.ru">dmitryvasiliev82@inbox.ru</a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-label">Телефон</div>
+        <div class="contact-value">
+          <a href="tel:+79245984337">+7 924 598-43-37</a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-label">Социальные сети</div>
+        <div class="contact-value social-links">
+          <a href="https://www.instagram.com/bzl_art/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.threads.com/@bzl_art" target="_blank" rel="noopener">Threads</a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-label">Город</div>
+        <div class="contact-value">Якутск, Республика Саха (Якутия)</div>
+      </div>
+
+    </div>
+
+    <div class="qr-block">
+      <img src="images/qr_code.png" alt="QR-код сайта">
+      <p class="qr-hint">Наведите камеру — откроется сайт</p>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>Дмитрий Эдуардович Васильев · Якутск · Республика Саха (Якутия)</p>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById('mobile-nav').classList.toggle('open');
+}
+document.getElementById('burger').addEventListener('click', function(e) {
+  e.stopPropagation();
+  toggleMenu();
+});
+document.addEventListener('click', function(e) {
+  var nav = document.getElementById('mobile-nav');
+  if (nav && nav.classList.contains('open')) {
+    nav.classList.remove('open');
+  }
+});
+document.getElementById('mobile-nav').addEventListener('click', function(e) {
+  e.stopPropagation();
+});
+</script>
+
+</body>
+</html>
